@@ -39,7 +39,7 @@ void SIM868_GPS_Power(ATTerminal* at, bool powerOn);
 void SIM868_GPS_UnsolicitedFix(ATTerminal* at, uint8_t period);
 void SIM868_GPS_LastFix(ATTerminal* at);
 
-SIM868GPSInfo SIM868_GPS_ParseFixInfo(ATTerminal* at, char* info);
-bool          SIM868_GPS_ParsePowerInfo(ATTerminal* at, char* info);
+SIM868GPSInfo SIM868_GPS_ParseFixInfo(char* info);
+bool          SIM868_GPS_ParsePowerInfo(char* info);
 
 #endif

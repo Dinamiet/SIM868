@@ -27,9 +27,8 @@ void SIM868_GPS_LastFix(ATTerminal* at)
 	ATTerminal_SendCommand(at, command);
 }
 
-SIM868GPSInfo SIM868_GPS_ParseFixInfo(ATTerminal* at, char* info)
+SIM868GPSInfo SIM868_GPS_ParseFixInfo(char* info)
 {
-	(void)at; // Unused
 	// uint8_t       reserved1, reserved2, reserved3;
 	struct tm     time    = {0};
 	SIM868GPSInfo gpsData = {0};
@@ -149,9 +148,8 @@ SIM868GPSInfo SIM868_GPS_ParseFixInfo(ATTerminal* at, char* info)
 	return gpsData;
 }
 
-bool SIM868_GPS_ParsePowerInfo(ATTerminal* at, char* info)
+bool SIM868_GPS_ParsePowerInfo(char* info)
 {
-	(void)at; // Unused
 	int powerOn = atoi(info);
 	return powerOn;
 }
