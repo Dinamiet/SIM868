@@ -1,6 +1,8 @@
 #ifndef _SIM868_GPS_H_
 #define _SIM868_GPS_H_
 
+#include "atterminal.h"
+
 #include <stdbool.h>
 #include <stdint.h>
 
@@ -27,11 +29,11 @@ typedef struct _SIM868GPSInfo_
 	float    VPA;
 } SIM868GPSInfo;
 
-void SIM868_GPS_Power(bool powerOn);
-void SIM868_GPS_UnsolicitedFix(uint8_t period);
-void SIM868_GPS_LastFix();
+void SIM868_GPS_Power(ATTerminal* at, bool powerOn);
+void SIM868_GPS_UnsolicitedFix(ATTerminal* at, uint8_t period);
+void SIM868_GPS_LastFix(ATTerminal* at);
 
-SIM868GPSInfo SIM868_GPS_ParseFixInfo(char* info);
-bool          SIM868_GPS_ParsePowerInfo(char* info);
+SIM868GPSInfo SIM868_GPS_ParseFixInfo(ATTerminal* at, char* info);
+bool          SIM868_GPS_ParsePowerInfo(ATTerminal* at, char* info);
 
 #endif

@@ -5,21 +5,27 @@
 
 #define MAX_COMMAND_SIZE 32
 
-void SIM868_GPS_Power(bool powerOn)
+void SIM868_GPS_Power(ATTerminal* at, bool powerOn)
 {
 	char command[MAX_COMMAND_SIZE];
 	sprintf(command, "AT+CGNSPWR=%d", powerOn);
+	ATTerminal_SendCommand(at, command);
 }
 
-void SIM868_GPS_UnsolicitedFix(uint8_t period)
+void SIM868_GPS_UnsolicitedFix(ATTerminal* at, uint8_t period)
 {
 	char command[MAX_COMMAND_SIZE];
 	sprintf(command, "AT+CGNSURC=%d", period);
+	ATTerminal_SendCommand(at, command);
 }
 
-void SIM868_GPS_LastFix() { char* command = "AT+CGNSINF"; }
+void SIM868_GPS_LastFix(ATTerminal* at)
+{
+	char* command = "AT+CGNSINF";
+	ATTerminal_SendCommand(at, command);
+}
 
-SIM868GPSInfo SIM868_GPS_ParseFixInfo(char* info)
+SIM868GPSInfo SIM868_GPS_ParseFixInfo(ATTerminal* at, char* info)
 {
 	uint8_t       reserved1, reserved2, reserved3;
 	struct tm     time;
@@ -60,9 +66,9 @@ SIM868GPSInfo SIM868_GPS_ParseFixInfo(char* info)
 	// gpsData.UTCSeconds =timegm(
 }
 
-bool SIM868_GPS_ParsePowerInfo(char* info)
+bool SIM868_GPS_ParsePowerInfo(ATTerminal* at, char* info)
 {
-	bool powerOn;
-	sscanf(info, "%d", &powerOn);
+	(void)at; // Unused
+	int powerOn = atoi(info);
 	return powerOn;
 }
