@@ -4,15 +4,15 @@ include(FetchContent)
 set(FETCHCONTENT_QUIET OFF)
 
 FetchContent_Declare(
-	Template
+	ATTerminal
 	GIT_REPOSITORY
-		git@bitbucket.org:dinamiet/template.git
+		git@github.com:Dinamiet/ATTerminal.git
 	GIT_TAG
-		master
+		develop
 	SOURCE_DIR
-		${CMAKE_SOURCE_DIR}/lib/Template
+		${CMAKE_SOURCE_DIR}/lib/ATTerminal
 )
 
 FetchContent_MakeAvailable(
-	# Template
+	ATTerminal
 )
