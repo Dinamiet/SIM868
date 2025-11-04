@@ -10,7 +10,7 @@ typedef enum _SIM868GPSATResponses_
 {
 	SIM868_GPS_RESPONSE_FIX   = 0x82BE4BAD,
 	SIM868_GPS_RESPONSE_POWER = 0xF0A29A35,
-} SIM868GPSATResponses;
+} SIM868GPSATResponse;
 
 typedef struct _SIM868GPSInfo_
 {
