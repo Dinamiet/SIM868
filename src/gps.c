@@ -5,7 +5,7 @@
 #include <string.h>
 #include <time.h>
 
-#define MAX_COMMAND_SIZE 32
+#define MAX_COMMAND_SIZE 16
 
 void SIM868_GPS_Power(ATTerminal* at, bool powerOn)
 {
