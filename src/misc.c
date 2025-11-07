@@ -1,8 +1,7 @@
+#include "defines.h"
 #include "sim868_misc.h"
 
 #include <stdio.h>
-
-#define MAX_COMMAND_SIZE 16
 
 void SIM868_Misc_CommandEcho(ATTerminal* at, bool echoEnabled)
 {
