@@ -11,7 +11,7 @@ void SIM868_Call_Terminate(ATTerminal* at) { ATTerminal_SendCommand(at, "ATH"); 
 void SIM868_Call_Place(ATTerminal* at, char* number)
 {
 	char command[MAX_COMMAND_SIZE];
-	sprintf(command, "ATD%s", number);
+	sprintf(command, "ATD%s;", number);
 	ATTerminal_SendCommand(at, command);
 }
 
