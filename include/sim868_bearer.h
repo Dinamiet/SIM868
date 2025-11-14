@@ -31,9 +31,7 @@ typedef struct _SIM868BearerStatusInfo_
 	char IPAddress[16];
 } SIM868BearerStatusInfo;
 
-void SIM868_Bearer_SetConnectionType(ATTerminal* at, uint8_t identifier, SIM868BearerConnection type);
-void SIM868_Bearer_SetAPN(ATTerminal* at, uint8_t identifier, char* apn);
-void SIM868_Bearer_OpenConnection(ATTerminal* at, uint8_t identifier);
+void SIM868_Bearer_OpenConnection(ATTerminal* at, uint8_t identifier, char* apn, SIM868BearerConnection type);
 void SIM868_Bearer_CloseConnection(ATTerminal* at, uint8_t identifier);
 void SIM868_Bearer_QueryConnection(ATTerminal* at, uint8_t identifier);
 
