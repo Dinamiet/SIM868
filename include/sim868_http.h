@@ -26,11 +26,8 @@ typedef struct _SIM868HTTPActionInfo_
 	size_t ResponseLength;
 } SIM868HTTPActionInfo;
 
-void SIM868_HTTP_StartSession(ATTerminal* at);
-void SIM868_HTTP_SetBearerProfile(ATTerminal* at, uint8_t identifier);
-void SIM868_HTTP_SetURL(ATTerminal* at, char* url);
-void SIM868_HTTP_SetRequestBody(ATTerminal* at, void* data, size_t size);
-void SIM868_HTTP_ExecuteAction(ATTerminal* at, SIM868HTTPAction action);
+void SIM868_HTTP_StartSession(ATTerminal* at, uint8_t identifier);
+void SIM868_HTTP_Post(ATTerminal* at, char* url, void* data, size_t size);
 void SIM868_HTTP_ReadResponseData(ATTerminal* at);
 void SIM868_HTTP_TerminateSession(ATTerminal* at);
 

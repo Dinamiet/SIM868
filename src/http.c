@@ -5,36 +5,20 @@
 #include <stdlib.h>
 #include <string.h>
 
-void SIM868_HTTP_StartSession(ATTerminal* at) { ATTerminal_SendCommand(at, "AT+HTTPINIT"); }
-
-void SIM868_HTTP_SetBearerProfile(ATTerminal* at, uint8_t identifier)
+void SIM868_HTTP_StartSession(ATTerminal* at, uint8_t identifier)
 {
 	char command[MAX_COMMAND_SIZE];
-	sprintf(command, "AT+HTTPPARA=\"CID\",%d", identifier);
+	sprintf(command, "AT+HTTPINIT;+HTTPPARA=\"CID\",%d", identifier);
 	ATTerminal_SendCommand(at, command);
 }
 
-void SIM868_HTTP_SetURL(ATTerminal* at, char* url)
+void SIM868_HTTP_Post(ATTerminal* at, char* url, void* data, size_t size)
 {
 	char command[MAX_COMMAND_SIZE];
-	sprintf(command, "AT+HTTPPARA=\"URL\",\"%s\"", url);
-	ATTerminal_SendCommand(at, command);
-}
-
-void SIM868_HTTP_SetRequestBody(ATTerminal* at, void* data, size_t size)
-{
-	char command[MAX_COMMAND_SIZE];
-	sprintf(command, "AT+HTTPDATA=%ld,60000", size);
+	sprintf(command, "AT+HTTPPARA=\"URL\",\"%s\";+HTTPDATA=%ld,1000;+HTTPACTION=%d", url, size, SIM868_HTTP_ACTION_POST);
 	ATTerminal_SendCommand(at, command);
 	ATTerminal_Wait(at, "DOWNLOAD");
 	ATTerminal_SendRaw(at, data, size);
-}
-
-void SIM868_HTTP_ExecuteAction(ATTerminal* at, SIM868HTTPAction action)
-{
-	char command[MAX_COMMAND_SIZE];
-	sprintf(command, "AT+HTTPACTION=%d", action);
-	ATTerminal_SendCommand(at, command);
 }
 
 void SIM868_HTTP_ReadResponseData(ATTerminal* at) { ATTerminal_SendCommand(at, "AT+HTTPREAD"); }
