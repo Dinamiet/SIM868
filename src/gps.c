@@ -6,25 +6,14 @@
 #include <string.h>
 #include <time.h>
 
-void SIM868_GPS_Power(ATTerminal* at, bool powerOn)
+void SIM868_GPS_Power(ATTerminal* at, bool powerOn, uint8_t fixPeriod)
 {
 	char command[MAX_COMMAND_SIZE];
-	sprintf(command, "AT+CGNSPWR=%d", powerOn);
+	sprintf(command, "AT+CGNSPWR=%d;+CGNSURC=%d", powerOn, fixPeriod);
 	ATTerminal_SendCommand(at, command);
 }
 
-void SIM868_GPS_UnsolicitedFix(ATTerminal* at, uint8_t period)
-{
-	char command[MAX_COMMAND_SIZE];
-	sprintf(command, "AT+CGNSURC=%d", period);
-	ATTerminal_SendCommand(at, command);
-}
-
-void SIM868_GPS_LastFix(ATTerminal* at)
-{
-	char* command = "AT+CGNSINF";
-	ATTerminal_SendCommand(at, command);
-}
+void SIM868_GPS_LastFix(ATTerminal* at) { ATTerminal_SendCommand(at, "AT+CGNSINF"); }
 
 SIM868GPSInfo SIM868_GPS_ParseFixInfo(char* info)
 {
