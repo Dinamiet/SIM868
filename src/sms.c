@@ -5,17 +5,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-void SIM868_SMS_SetFormat(ATTerminal* at, bool text)
-{
-	char command[MAX_COMMAND_SIZE];
-	sprintf(command, "AT+CMGF=%d", text);
-	ATTerminal_SendCommand(at, command);
-}
-
 void SIM868_SMS_Send(ATTerminal* at, char* number, char* msg)
 {
 	char command[MAX_COMMAND_SIZE];
-	sprintf(command, "AT+CMGS=\"%s\"", number);
+	sprintf(command, "AT+CMGF=1;+CMGS=\"%s\"", number);
 	ATTerminal_SendCommand(at, command);
 	ATTerminal_Wait(at, "> ");
 	sprintf(command, "%s\x1A", msg);
@@ -25,7 +18,7 @@ void SIM868_SMS_Send(ATTerminal* at, char* number, char* msg)
 void SIM868_SMS_ReadMsg(ATTerminal* at, uint8_t index)
 {
 	char command[MAX_COMMAND_SIZE];
-	sprintf(command, "AT+CMGR=%d", index);
+	sprintf(command, "AT+CMGF=1;+CMGR=%d", index);
 	ATTerminal_SendCommand(at, command);
 }
 

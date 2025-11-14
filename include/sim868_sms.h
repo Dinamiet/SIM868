@@ -14,7 +14,6 @@ typedef enum _SIM868SMSResponse_
 	SIM868_SMS_MSG_DATA = 0xC55361E4, // CMGR
 } SIM868SMSResponse;
 
-void SIM868_SMS_SetFormat(ATTerminal* at, bool text);
 void SIM868_SMS_Send(ATTerminal* at, char* number, char* msg);
 void SIM868_SMS_ReadMsg(ATTerminal* at, uint8_t index);
 void SIM868_SMS_DeleteMsg(ATTerminal* at, uint8_t index);
