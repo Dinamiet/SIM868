@@ -15,13 +15,15 @@ void SIM868_HTTP_StartSession(ATTerminal* at, uint8_t identifier)
 void SIM868_HTTP_Post(ATTerminal* at, char* url, void* data, size_t size)
 {
 	char command[MAX_COMMAND_SIZE];
-	sprintf(command, "AT+HTTPPARA=\"URL\",\"%s\";+HTTPDATA=%ld,1000;+HTTPACTION=%d", url, size, SIM868_HTTP_ACTION_POST);
+	sprintf(command, "AT+HTTPPARA=\"URL\",\"%s\";+HTTPDATA=%ld,1000", url, size);
 	ATTerminal_SendCommand(at, command);
 	ATTerminal_Wait(at, "DOWNLOAD");
 	ATTerminal_SendRaw(at, data, size);
+	sprintf(command, "AT+HTTPACTION=%d", SIM868_HTTP_ACTION_POST);
+	ATTerminal_SendCommand(at, command);
 }
 
-void SIM868_HTTP_ReadResponseData(ATTerminal* at) { ATTerminal_SendCommand(at, "AT+HTTPREAD"); }
+void SIM868_HTTP_RequestResponseData(ATTerminal* at) { ATTerminal_SendCommand(at, "AT+HTTPREAD"); }
 
 void SIM868_HTTP_TerminateSession(ATTerminal* at) { ATTerminal_SendCommand(at, "AT+HTTPTERM"); }
 
@@ -48,3 +50,7 @@ SIM868HTTPActionInfo SIM868_HTTP_ParseActionInfo(char* info)
 
 	return actionInfo;
 }
+
+size_t SIM868_HTTP_ParseReadData(char* info) { return atoi(info); }
+
+size_t SIM868_HTTP_ReadData(ATTerminal* at, void* data, size_t size) { return ATTerminal_ReadRaw(at, data, size); }
