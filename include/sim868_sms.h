@@ -14,13 +14,19 @@ typedef enum _SIM868SMSResponse_
 	SIM868_SMS_MSG_DATA = 0xC55361E4, // CMGR
 } SIM868SMSResponse;
 
+typedef struct _SIM868SMSMessageInfo_
+{
+	char*  Sender;
+	size_t Length;
+} SIM868SMSMessageInfo;
+
 void SIM868_SMS_Send(ATTerminal* at, char* number, char* msg);
-void SIM868_SMS_ReadMsg(ATTerminal* at, uint8_t index);
+void SIM868_SMS_RequestReceivedMsg(ATTerminal* at, uint8_t index);
 void SIM868_SMS_DeleteMsg(ATTerminal* at, uint8_t index);
 
 uint8_t SIM868_SMS_ParseSend(char* info);
 uint8_t SIM868_SMS_ParseNewMsg(char* info);
-uint8_t SIM868_SMS_ParseMsgInfo(char* info);
-char*   SIM868_SMS_ParseMsgSender(char* info);
+SIM868SMSMessageInfo SIM868_SMS_ParseMsgInfo(char* info);
+size_t               SIM868_SMS_ReadMsg(ATTerminal* at, void* data, size_t size);
 
 #endif
