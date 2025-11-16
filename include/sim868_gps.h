@@ -35,8 +35,7 @@ typedef struct _SIM868GPSInfo_
 	float    VPA;
 } SIM868GPSInfo;
 
-void SIM868_GPS_Power(ATTerminal* at, bool powerOn);
-void SIM868_GPS_UnsolicitedFix(ATTerminal* at, uint8_t period);
+void SIM868_GPS_Power(ATTerminal* at, bool powerOn, uint8_t fixPeriod);
 void SIM868_GPS_LastFix(ATTerminal* at);
 
 SIM868GPSInfo SIM868_GPS_ParseFixInfo(char* info);

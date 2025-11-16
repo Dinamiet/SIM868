@@ -8,9 +8,7 @@
 
 typedef enum _SIM868MiscResponse_
 {
-	SIM868_MISC_OK             = 0x85E4B82F,
-	SIM868_MISC_ERROR          = 0xDF22B531,
-	SIM868_MISC_RDY            = 0xBCD1304E,
+	SIM868_MISC_RDY            = 0xBCD1304E, // RDY
 	SIM868_MISC_BATTERY_STATUS = 0x4647B2A9, // CBC
 } SIM868MiscResponse;
 
