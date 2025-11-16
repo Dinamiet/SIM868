@@ -55,9 +55,6 @@ void SIM868_GSM_Functionality(ATTerminal* at, SIM868GSMFunctionality func);
 void SIM868_GSM_EnterPin(ATTerminal* at, char* pin);
 void SIM868_GSM_SignalCheck(ATTerminal* at);
 void SIM868_GSM_NetworkRegistrationStatus(ATTerminal* at, SIM868GSMNetworkNotify notify);
-void SIM868_GSM_SetAPN(ATTerminal* at, char* apn, char* user, char* pwd);
-void SIM868_GSM_ConnectData(ATTerminal* at);
-void SIM868_GSM_IPAddress(ATTerminal* at);
 
 SIM868GSMNetworkInfo SIM868_GSM_ParseNetworkInfo(char* info);
 SIM868GSMSignalInfo  SIM868_GSM_ParseSignalInfo(char* info);
