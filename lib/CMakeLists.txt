@@ -8,7 +8,7 @@ FetchContent_Declare(
 	GIT_REPOSITORY
 		git@github.com:Dinamiet/ATTerminal.git
 	GIT_TAG
-		develop
+		main
 	SOURCE_DIR
 		${CMAKE_SOURCE_DIR}/lib/ATTerminal
 )
