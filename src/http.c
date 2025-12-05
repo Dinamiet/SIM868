@@ -5,10 +5,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-void SIM868_HTTP_StartSession(ATTerminal* at, uint8_t identifier)
+void SIM868_HTTP_StartSession(ATTerminal* at, uint8_t identifier, uint8_t timeout)
 {
 	char command[MAX_COMMAND_SIZE];
-	sprintf(command, "AT+HTTPINIT;+HTTPPARA=\"CID\",%d", identifier);
+	sprintf(command, "AT+HTTPINIT;+HTTPPARA=\"TIMEOUT\",%d;+HTTPPARA=\"CID\",%d", timeout, identifier);
 	ATTerminal_SendCommand(at, command);
 }
 
