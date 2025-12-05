@@ -11,9 +11,13 @@ void SIM868_SMS_Send(ATTerminal* at, char* number, char* msg)
 	ATTerminal_SendCommand(at, "AT+CMGF=1");
 	sprintf(command, "AT+CMGS=\"%s\"", number);
 	ATTerminal_SendCommand(at, command);
-	ATTerminal_Wait(at, "> ");
-	size_t length = sprintf(command, "%s\x1A", msg);
-	ATTerminal_SendRaw(at, command, length);
+	if (ATTerminal_Wait(at, "> "))
+	{
+		size_t length = sprintf(command, "%s\x1A", msg);
+		ATTerminal_SendRaw(at, command, length);
+	}
+	else
+		ATTerminal_ForceBusy(at, false);
 }
 
 void SIM868_SMS_RequestReceivedMsg(ATTerminal* at, uint8_t index)

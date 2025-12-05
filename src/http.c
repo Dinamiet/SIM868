@@ -15,12 +15,16 @@ void SIM868_HTTP_StartSession(ATTerminal* at, uint8_t identifier, uint8_t timeou
 void SIM868_HTTP_Post(ATTerminal* at, char* url, void* data, size_t size)
 {
 	char command[MAX_COMMAND_SIZE];
-	sprintf(command, "AT+HTTPPARA=\"URL\",\"%s\";+HTTPDATA=%ld,1000", url, size);
+	sprintf(command, "AT+HTTPPARA=\"URL\",\"%s\";+HTTPDATA=%d,1000", url, size);
 	ATTerminal_SendCommand(at, command);
-	ATTerminal_Wait(at, "DOWNLOAD");
-	ATTerminal_SendRaw(at, data, size);
-	sprintf(command, "AT+HTTPACTION=%d", SIM868_HTTP_ACTION_POST);
-	ATTerminal_SendCommand(at, command);
+	if (ATTerminal_Wait(at, "DOWNLOAD"))
+	{
+		ATTerminal_SendRaw(at, data, size);
+		sprintf(command, "AT+HTTPACTION=%d", SIM868_HTTP_ACTION_POST);
+		ATTerminal_SendCommand(at, command);
+	}
+	else
+		ATTerminal_ForceBusy(at, false);
 }
 
 void SIM868_HTTP_RequestResponseData(ATTerminal* at) { ATTerminal_SendCommand(at, "AT+HTTPREAD"); }
@@ -29,9 +33,9 @@ void SIM868_HTTP_TerminateSession(ATTerminal* at) { ATTerminal_SendCommand(at, "
 
 SIM868HTTPActionInfo SIM868_HTTP_ParseActionInfo(char* info)
 {
-	SIM868HTTPActionInfo actionInfo= {0};
+	SIM868HTTPActionInfo actionInfo = {0};
 
-	char* rest = info;
+	char* rest  = info;
 	char* token = strsep(&rest, ",");
 
 	// Action
@@ -46,7 +50,7 @@ SIM868HTTPActionInfo SIM868_HTTP_ParseActionInfo(char* info)
 	// Response length
 	token = strsep(&rest, ",");
 	if (token)
-		actionInfo.ResponseLength= atoi(token);
+		actionInfo.ResponseLength = atoi(token);
 
 	return actionInfo;
 }
